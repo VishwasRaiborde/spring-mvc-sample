@@ -1,0 +1,62 @@
+#################################################################################
+
+create or replace view  obu.product_details_view  as
+(select
+	product.PRODUCT_ID,
+	product.PRODUCT_TITLE ,
+	product.PRODUCT_SHORT_DESC,
+	product_type.PRODUCT_TYPE_NAME,
+	supplier.supplier_NAME,
+    price.COST_PRICE,price.SELLING_PRICE
+from 
+	obu.product_tbl product,
+	obu.product_type_tbl product_type,
+	obu.supplier_tbl supplier,
+	obu.price_tbl price
+where 
+	product.PRODUCT_TYPE_ID = product_type.PRODUCT_TYPE_ID and
+	supplier.PRODUCT_ID = product.PRODUCT_ID and 
+	price.PRICE_ID = supplier.PRICE_ID and 
+	product.PRODUCT_ID = 1000);
+  
+#################################################################################
+
+create or replace view  obu.USER_CART_VIEW  as
+(select 
+	purchase.* ,
+	product.PRODUCT_TITLE ,
+	product.PRODUCT_SHORT_DESC,
+	supplier.supplier_NAME,
+    price.COST_PRICE,
+	price.SELLING_PRICE
+from 
+	obu.purchase_order_tbl  purchase ,
+	obu.product_tbl product,
+	obu.supplier_tbl supplier,
+	obu.price_tbl price
+where 
+	purchase.PRODUCT_ID = product.PRODUCT_ID  AND
+	purchase.SUPPLIER_ID = supplier.SUPPLIER_ID AND 
+	supplier.PRICE_ID = price.PRICE_ID ); 
+	
+########################### GET CART ITEM PER SUPPLIER AND TOTOL PRICE #############################################
+
+create or replace view  obu.USER_CART_VIEW_SECONDARY  as
+(select 
+	ORDER_ID,
+	product_title,
+	supplier_name, 
+	selling_price,
+	sum(quantity) as qty_per_product,
+	((sum(quantity)) *  selling_price) as total
+from 
+	obu.purchase_order_tbl  purchase ,
+	obu.product_tbl product,
+	obu.supplier_tbl supplier,
+	obu.price_tbl price
+where 
+	purchase.PRODUCT_ID = product.PRODUCT_ID  AND
+	purchase.SUPPLIER_ID = supplier.SUPPLIER_ID AND 
+	supplier.PRICE_ID = price.PRICE_ID 
+	group by supplier.SUPPLIER_ID,product.PRODUCT_ID);
+	

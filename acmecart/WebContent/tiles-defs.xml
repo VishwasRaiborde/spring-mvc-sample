@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ 
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"       
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="baseLayout" template="/acmeviews/template/baseLayout.jsp">
+		<put-attribute name="header"	value="/acmeviews/template/header.jsp" />
+		<put-attribute name="menu"      value="/acmeviews/template/menu.jsp" />
+		<put-attribute name="body"      value="" />
+		<put-attribute name="footer"    value="/acmeviews/template/footer.jsp" />
+	</definition>
+	
+	<definition name="menu" extends="baseLayout">
+		<put-attribute name="menu"	value="/acmeviews/template/menu.jsp" />
+	</definition>
+	
+	<definition name="productList" extends="baseLayout">
+		<put-attribute name="body"	value="/acmeviews/pages/productList.jsp" />
+	</definition>
+	
+	<definition name="displayDetails" extends="baseLayout">
+		<put-attribute name="body"	value="/acmeviews/pages/productDetails.jsp" />
+	</definition>
+	
+	
+	<definition name="profile" extends="baseLayout">
+		<put-attribute name="body"	value="/acmeviews/pages/profile.jsp" />
+	</definition>
+	
+	<definition name="login" extends="baseLayout">
+		<put-attribute name="body"	value="/acmeviews/pages/login.jsp" />
+	</definition>
+	
+	<definition name="cartDetails" extends="baseLayout">
+		<put-attribute name="body"	value="/acmeviews/pages/cartDetail.jsp" />
+	</definition>
+	
+	<definition name="errorDetails" extends="baseLayout">
+		<put-attribute name="body"	value="/acmeviews/pages/errorDetailPage.jsp" />
+	</definition>
+	
+</tiles-definitions> 
